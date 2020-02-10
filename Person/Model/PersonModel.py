@@ -7,9 +7,9 @@ class PersonModel(Base):
     __tablename__ = "Person"
 
     ID = Column(Integer, primary_key=True, autoincrement=True)
-    Name = Column(String(100))
+    Name = Column(String(length=100))
     Age = Column(Integer)
-    Sex = Column(String(20))
+    Sex = Column(String(length=20))
 
     def __init__(self, name, age, sex, id=None):
         self.id = id
