@@ -11,16 +11,16 @@ class PersonModel(Base):
     Age = Column(Integer)
     Sex = Column(String(length=20))
 
-    def __init__(self, name, age, sex, id=None):
-        self.id = id
-        self.name = name
-        self.age = age
-        self.sex = sex
+    def __init__(self, Name, Age, Sex, ID=None):
+        self.ID = ID
+        self.Name = Name
+        self.Age = Age
+        self.Sex = Sex
 
     def serialize(self):
         return {
-            "id" : self.id,
-            "name" : self.name,
-            "age" : self.age,
-            "sex" : self.sex
+            "ID" : self.ID,
+            "Name" : self.Name,
+            "Age" : self.Age,
+            "Sex" : self.Sex
         }

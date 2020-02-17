@@ -1,5 +1,6 @@
 from Person.Dao.Connection import Connection
 
+
 class BaseDao(Connection):
     def __init__(self, model):
         super().__init__()
@@ -7,7 +8,7 @@ class BaseDao(Connection):
 
     def delete(self, id):
         try:
-            person = self.session.query(self.model).filter_by(id=id).first()
+            person = self.session.query(self.model).filter_by(ID=id).first()
             self.session.delete(person)
             self.session.commit()
         except:
@@ -29,9 +30,10 @@ class BaseDao(Connection):
         ret= []
         for p in person:
             ret.append(p.serialize())
+        return ret
 
     def select_by_id(self, id):
-        person = self.session.query(self.model).filter_by(id=id).first
+        person = self.session.query(self.model).filter_by(ID=id).first()
         return person.serialize()
 
     def update(self, new):

@@ -11,5 +11,5 @@ class Connection():
         connectStr = f"mysql://{user}:{passwd}@{host}/{database}"
 
         engine = create_engine(connectStr, echo=True)
-        Session = sessionmaker(bind=engine)
-        self.session = Session()
+        session = sessionmaker(bind=engine)
+        self.session = session()

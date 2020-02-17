@@ -25,5 +25,4 @@ class BaseController(Resource):
         kwargs = {}
         for key, value in request.json.items():
             kwargs[key] = value
-
         return kwargs
