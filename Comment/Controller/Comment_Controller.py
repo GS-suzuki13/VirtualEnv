@@ -18,6 +18,9 @@ class Comment_Controller(Resource):
         model = self.carrega_param()
         return self.dao.create(model)
 
+    def delete(self, id):
+        return self.dao.delete(id)
+
     def carrega_param(self):
         id = request.json['id']
         pessoa_id = request.json['pessoa_id']

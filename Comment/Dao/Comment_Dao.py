@@ -1,5 +1,6 @@
 from Model.Comment import Comment
 
+
 class CommentDao:
 
     def chamar_arquivo(self, metodo):
@@ -20,6 +21,14 @@ class CommentDao:
 
         return None
 
+    def atualizar_arquivo(self, classes):
+        self.chamar_arquivo('w')
+        for classe in classes:
+            string = classe.__str__()
+            self.arquivo.write(string)
+
+        self.arquivo.close()
+
     def delete(self, id):
         classes = self.get_dados()
         classe = self.buscar_classe(classes, id)
@@ -27,12 +36,9 @@ class CommentDao:
             return 'Objeto não encontrado'
 
         else:
+            classes.remove(classe)
+            self.atualizar_arquivo(classes)
             return 'Objeto deletado'
-
-    def update(self, comment, metodo):
-        for dado in comment:
-            model = Comment(dado[1], dado[2], dado[3], dado[4], dado[0])
-            self.create(model.__str__(), metodo)
 
     def get_by_id(self, id):
         classes = self.get_dados()
