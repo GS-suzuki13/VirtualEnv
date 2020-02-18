@@ -11,7 +11,7 @@ class CommentDao:
         string = comment.__str__()
         self.arquivo.write(string)
         self.arquivo.close()
-        return 'Objeto criado'
+        return comment.as_dict()
 
     def buscar_classe(self, classes, id):
         for classe in classes:
@@ -69,10 +69,5 @@ class CommentDao:
 
         return lista
 
-
-if __name__ == '__main__':
-    comment = CommentDao()
-    model = Comment(0, 0, "ddddd", '111112', 3)
-    comment.create(model)
-    a = comment.delete(0)
-    print(comment.list_all())
+    def update(self):
+        pass

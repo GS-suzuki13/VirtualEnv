@@ -18,6 +18,10 @@ class Comment_Controller(Resource):
         model = self.carrega_param()
         return self.dao.create(model)
 
+    def put(self):
+        model = self.carrega_param()
+        return self.dao.update(model)
+
     def delete(self, id):
         return self.dao.delete(id)
 
@@ -26,7 +30,6 @@ class Comment_Controller(Resource):
         pessoa_id = request.json['pessoa_id']
         post_id = request.json['post_id']
         conteudo = request.json['conteudo']
-        post_id = request.json['post_id']
         dt_envio = request.json['dt_envio']
-        model = Comment(pessoa_id, post_id, conteudo, conteudo, id)
+        model = Comment(pessoa_id, post_id, conteudo, dt_envio, id)
         return model
