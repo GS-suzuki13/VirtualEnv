@@ -1,9 +1,9 @@
-from Comment.Model.Comment import Comment
+from Model.Comment import Comment
 
 class CommentDao:
 
     def chamar_arquivo(self, metodo):
-        self.arquivo = open(r'C:\Users\900142\Desktop\VirtualEnv\Comment\Comment.txt', metodo)
+        self.arquivo = open(r'C:\Users\900164\Documents\VirtualEnv\Comment\Comment.txt', metodo)
 
     def create(self, comment: Comment, metodo='a'):
         self.chamar_arquivo(metodo)
@@ -27,6 +27,18 @@ class CommentDao:
         for dado in comment:
             model = Comment(dado[1], dado[2], dado[3], dado[4], dado[0])
             self.create(model.__str__(), metodo)
+
+    def get_by_id(self, id):
+        self.chamar_arquivo('r')
+        lista = self.arquivo.readlines()
+        for dado in lista:
+            dado = dado.strip().split(';')
+            if dado[4] == id:
+                break
+
+        self.arquivo.close()
+        classe = Comment(dado[1], dado[2], dado[3], dado[4], dado[0])
+        return classe.as_dict()
 
     def list_all(self):
         self.chamar_arquivo('r')
