@@ -12,17 +12,22 @@ class CommentDao:
         self.arquivo.close()
         return 'Objeto criado'
 
-    def delete(self, id):
-        comentario = self.list_all()
-        comentarios = []
-        for comment in comentario:
-            if int(comment[4]) == id:
-                comentario.remove(comment)
-            else:
-                comentarios.append(comment)
+    def buscar_classe(self, classes, id):
+        for classe in classes:
+            classe_dict = classe.as_dict()
+            if int(classe_dict['id']) == id:
+                return classe
 
-        print(comentarios)
-        self.update(comentarios, 'w')
+        return None
+
+    def delete(self, id):
+        classes = self.get_dados()
+        classe = self.buscar_classe(classes, id)
+        if classe is None:
+            return 'Objeto não encontrado'
+
+        else:
+            return 'Objeto deletado'
 
     def update(self, comment, metodo):
         for dado in comment:
@@ -31,12 +36,12 @@ class CommentDao:
 
     def get_by_id(self, id):
         classes = self.get_dados()
-        for classe in classes:
-            classe_dict = classe.as_dict()
-            if classe_dict['id'] == id:
-                return classe
+        classe = self.buscar_classe(classes, id)
+        if classe is None:
+            return 'Objeto não encontrado'
 
-        return 'ID não encontrado'
+        else:
+            return classe.as_dict()
 
     def get_dados(self):
         self.chamar_arquivo('r')
@@ -44,7 +49,7 @@ class CommentDao:
         classes = []
         for dado in lista:
             dado = dado.strip().split(';')
-            classe = Comment(dado[1], dado[2], dado[3], dado[4], dado[0])
+            classe = Comment(dado[0], dado[1], dado[2], dado[3], dado[4])
             classes.append(classe)
 
         self.arquivo.close()
