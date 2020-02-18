@@ -10,6 +10,7 @@ class CommentDao:
         string = comment.__str__()
         self.arquivo.write(string)
         self.arquivo.close()
+        return 'Objeto criado'
 
     def delete(self, id):
         comentario = self.list_all()
@@ -29,26 +30,33 @@ class CommentDao:
             self.create(model.__str__(), metodo)
 
     def get_by_id(self, id):
+        classes = self.get_dados()
+        for classe in classes:
+            classe_dict = classe.as_dict()
+            if classe_dict['id'] == id:
+                return classe
+
+        return 'ID não encontrado'
+
+    def get_dados(self):
         self.chamar_arquivo('r')
         lista = self.arquivo.readlines()
+        classes = []
         for dado in lista:
             dado = dado.strip().split(';')
-            if dado[4] == id:
-                break
+            classe = Comment(dado[1], dado[2], dado[3], dado[4], dado[0])
+            classes.append(classe)
 
         self.arquivo.close()
-        classe = Comment(dado[1], dado[2], dado[3], dado[4], dado[0])
-        return classe.as_dict()
+        return classes
 
     def list_all(self):
-        self.chamar_arquivo('r')
-        lista = self.arquivo.readlines()
-        comentarios = []
-        for dado in lista:
-            dado = dado.strip().split(';')
-            comentarios.append(dado)
-        self.arquivo.close()
-        return comentarios
+        classes = self.get_dados()
+        lista = []
+        for classe in classes:
+            lista.append(classe.as_dict())
+
+        return lista
 
 
 if __name__ == '__main__':
