@@ -1,5 +1,5 @@
 
-class Comment():
+class Comment:
 
     def __init__(self, pessoa_id, post_id, conteudo, dt_envio, id=None):
         self.id = id
@@ -13,9 +13,9 @@ class Comment():
 
     def as_dict(self):
         return {
-            "id": self.id,
-            "pessoa_id": self.pessoa_id,
-            "post_id": self.post_id,
+            "id": int(self.id),
+            "pessoa_id": int(self.pessoa_id),
+            "post_id": int(self.post_id),
             "conteudo": self.conteudo,
             "dt_envio": str(self.dt_envio)
         }

@@ -18,8 +18,9 @@ class Comment_Controller(Resource):
         model = self.carrega_param()
         return self.dao.create(model)
 
-    def put(self):
+    def put(self, id):
         model = self.carrega_param()
+        model.id = id
         return self.dao.update(model)
 
     def delete(self, id):

@@ -1,3 +1,4 @@
+
 from Model.Comment import Comment
 
 
@@ -69,5 +70,16 @@ class CommentDao:
 
         return lista
 
-    def update(self):
-        pass
+    def update(self, model):
+        classes = self.get_dados()
+        for classe in classes:
+            classe_dict = classe.as_dict()
+            if model.id == classe_dict['id']:
+                classe.id = model.id
+                classe.pessoa_id = model.pessoa_id
+                classe.post_id = model.post_id
+                classe.conteudo = model.conteudo
+                classe.dt_envio = model.dt_envio
+
+        self.atualizar_arquivo(classes)
+        return classe.as_dict()
